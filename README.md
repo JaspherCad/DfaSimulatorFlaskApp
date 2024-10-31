@@ -1,4 +1,9 @@
 ﻿# DfaSimulatorFlaskApp
+
+ IF INSTRUCTIONS NOT CLEAR, OR TOO LAZY TO FOLLOW, PM ME OR GO TO MY CLASSROOM (tuesday-thursday)
+ inalis ko comments sa code AHAHAHAHAHAH para di overwhelming
+ 
+ 
 1) download the file from github: or clone. or whatever
 2) use (Env) in your terminal first
 
