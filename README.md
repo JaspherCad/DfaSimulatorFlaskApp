@@ -31,9 +31,16 @@ windows_10_cmake_Release_graphviz-install-12.1.2-win64.exe this could be the SOF
 * if ok na, go to powershell/cmd then command => dot -v (to show version of graphiz)
 
 
-
 5) additional tip. IF ERROR AFTER ALL THAT, "select interpreter" at vs studio. use the RECOMMENDED
 6) ![image](https://github.com/user-attachments/assets/37eabfde-45b3-4608-bd17-a61b9e207ae4)
 
+﻿# DEMO DEMO DEMO DEMO
 
-all done
+ ![image](https://github.com/user-attachments/assets/a7e4c37f-63ca-40b5-bb07-4c10bd7f8d1b)
+
+![image](https://github.com/user-attachments/assets/52353b66-900e-41a1-b21f-53afe438e0f6)
+
+![image](https://github.com/user-attachments/assets/da499ee6-1a3e-40d4-b349-0571180ead9f)
+
+
+
