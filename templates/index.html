@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable DFA Simulation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Customizable DFA Simulation</h1>
+    <form method="POST">
+        <label for="states">States (comma-separated):</label>
+        <input type="text" id="states" name="states" placeholder="e.g. q1,q2,q3" value="{{ request.form.states }}" required><br><br>
+        <label for="alphabet">Alphabet (comma-separated):</label>
+        <input type="text" id="alphabet" name="alphabet" placeholder="e.g. 0,1" value="{{ request.form.alphabet }}" required><br><br>
+        <label for="start_state">Start State:</label>
+        <input type="text" id="start_state" name="start_state" value="{{ request.form.start_state }}" required><br><br>
+        <label for="accept_states">Accept States (comma-separated):</label>
+        <input type="text" id="accept_states" name="accept_states" placeholder="e.g. q2,q3" value="{{ request.form.accept_states }}" required><br><br>
+        <label for="transitions">Transition Table (Format: current_state,input_symbol,next_state):</label><br>
+        <textarea id="transitions" name="transitions[]" placeholder="e.g. q1,0,q2" rows="5" cols="40" required>{{ request.form['transitions[]'] }}</textarea><br><br>
+        <p>Sample transitions:</p>
+        <p>q1,0,q2</p>
+        <p>q1,1,q4</p>
+        <p>q2,0,q3</p>
+        <p>q2,1,q2</p>
+        <p>q3,0,q3</p>
+        <p>q3,1,q3</p>
+        <p>q4,0,q4</p>
+        <p>q4,1,q3</p>
+        <label for="input_string">Input String (0's and 1's):</label>
+        <input type="text" id="input_string" name="input_string" value="{{ request.form.input_string }}" required><br><br>
+        <button type="submit">Simulate DFA</button>
+    </form>
+    
+    {% if transitions %}
+    <h2>Simulation Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>Input Character</th>
+                <th>Current State</th>
+                <th>Next State</th>
+                <th>Accepting State?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transition in transitions %}
+            <tr>
+                <td>{{ transition.step }}</td>
+                <td>{{ transition.input }}</td>
+                <td>{{ transition.current_state }}</td>
+                <td>{{ transition.next_state }}</td>
+                <td>{{ 'Yes' if transition.is_accepting else 'No' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="result {{ 'accepted' if accepted else 'rejected' }}">
+        Result: {{ 'Accepted' if accepted else 'Rejected' }}
+    </div>
+    
+    <h2>DFA Diagrams</h2>
+    <img src="{{ url_for('static', filename='dfa_diagram_step_0.png') }}" alt="DFA Diagram">
+
+    {% for diagram in diagram_filenames %}
+        <img src="{{ url_for('static', filename=diagram) }}" alt="DFA Diagram Step {{ loop.index }}">
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
