@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Customizable DFA Simulation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <h1>Welcome to the Customizable DFA Simulation!</h1>
+    <p>This application allows you to simulate Deterministic Finite Automata (DFA) and visualize the steps.</p>
+    <p>Click the button below to start the simulation:</p>
+    <a href="{{ url_for('index') }}">
+        <button type="button">Start DFA Simulation</button>
+    </a>
+
+    <div id="content" class="ic-Layout-contentMain" role="main" bis_skin_checked="1">
+
+
+
+
+        <div id="wiki_page_show" bis_skin_checked="1">
+
+            <div class="show-content user_content clearfix enhanced" data-resource-type="wiki_page.body"
+                data-resource-id="3933102" data-lti-page-content="true" bis_skin_checked="1">
+
+                <h1 class="page-title">Deterministic Finite Automata</h1>
+
+
+
+                <div id="top" style="background: #EEE; padding: 1%;" bis_skin_checked="1">
+                    <h2 style="background-color: #1d3557; padding: 1%; margin: 1%; color: #fff;">Topic 1: DFA
+                        Example</h2>
+                    <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+                        <p>Design a machine that recognizes the following strings.</p>
+                        <ul>
+                            <li>Starting with 0 and has 0 or more 1s in it.</li>
+                            <li>Starting with 1 and has 0 or more 0s in it.</li>
+                        </ul>
+                    </div>
+                    <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+                        <h3 style="border: #1D3557 thin; border-style: none none solid;">Instruction List</h3>
+                        <pre
+                            style="background-color: #f1faee; margin: 1%; padding: 1%;">M1 = (Q,∑,δ,q1,F)
+          Q = { q1, q2, q3, q4 }<br>  ∑ = { 0, 1 }
+          F = { q2, q4 } &nbsp; &nbsp; &nbsp; <br>  δ = {δ(q1,0)=q2, δ(q1,1)=q4,<br> &nbsp;&nbsp; &nbsp; &nbsp;δ(q2,0)=q3, δ(q2,1)=q2,<br>  &nbsp; &nbsp; &nbsp;δ(q3,0)=q3, δ(q3,1)=q3,<br> &nbsp; &nbsp; &nbsp; δ(q4,0)=q4, δ(q4,1)=q3  }</pre>
+                        <p><strong>Note: </strong> each transition contains only at most 1 alphabet</p>
+                    </div>
+                    <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+                        <h3 style="border: #1D3557 thin; border-style: none none solid;">State Diagram</h3>
+                        <pre style="background-color: #f1faee; margin: 1%; padding: 1%;">M1 = (Q,∑,δ,q1,F)
+          Q = { q1, q2, q3, q4 }<br>  ∑ = { 0, 1 }
+          F = { q2, q4 }</pre>
+                        <div style="text-align: center; vertical-align: center; height: 100%;" bis_skin_checked="1">P =
+                            <img src="{{ url_for('static', filename='fsa_diagram.png') }}" alt=""
+                                width="500" height="235" data-decorative="true"
+                                data-api-endpoint="https://tip.instructure.com/api/v1/courses/56242/files/25542958"
+                                data-api-returntype="File"></div>
+                        <p>Note:</p>
+                        <ul>
+                            <li>Intial States are represented by states with arrows having no source</li>
+                            <li>Final States are represented by double circle</li>
+                            <li><strong>Note: </strong> each transition contains only at most 1 alphabet</li>
+                        </ul>
+                    </div>
+                    <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+                        <h3 style="border: #1D3557 thin; border-style: none none solid;">Transition Table</h3>
+                        <pre style="background-color: #f1faee; margin: 1%; padding: 1%;">M1 = (Q,∑,δ,q1,F)
+          Q = { q1, q2, q3, q4 }<br>  ∑ = { 0, 1 }
+          F = { q2, q4 }</pre>
+                        <div style="text-align: center; vertical-align: center; height: 100%;" bis_skin_checked="1">P =
+                            <img src="{{ url_for('static', filename='fsa_table.png') }}" alt=""
+                                width="500" height="208" data-decorative="true"
+                                data-api-endpoint="https://tip.instructure.com/api/v1/courses/56242/files/25542959"
+                                data-api-returntype="File"></div>
+                    </div>
+                    
+                </div>
+
+                <div id="assign-to-mount-point" bis_skin_checked="1"></div>
+                <div id="choose-editor-mount-point" bis_skin_checked="1"></div>
+            </div>
+        </div>
+        <div id="module_navigation_target" bis_skin_checked="1">
+            <div style="" bis_skin_checked="1">
+                <div class="module-sequence-padding" bis_skin_checked="1"></div>
+                <div class="module-sequence-footer" role="navigation" aria-label="Module Navigation"
+                    bis_skin_checked="1">
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="content" class="ic-Layout-contentMain" role="main" bis_skin_checked="1">
+            
+
+  
+
+        <div id="wiki_page_show" bis_skin_checked="1">
+        
+        <div class="show-content user_content clearfix enhanced" data-resource-type="wiki_page.body" data-resource-id="3933106" data-lti-page-content="true" bis_skin_checked="1">
+          
+          
+          
+          
+            <div id="top" style="background: #EEE; padding: 1%;" bis_skin_checked="1">
+        <h2 style="background-color: #1d3557; padding: 1%; margin: 1%; color: #fff;">Topic 2: Usage of DFA</h2>
+        <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+        <p>Starting from the leftmost part of the string and an initial state.</p>
+        <ul>
+        <li>Scan one symbol from string</li>
+        <li>From current state</li>
+        </ul>
+        <p>How to use an DFA?</p>
+        <ol>
+        <li>Write down the initial state</li>
+        <li>Scan one symbol at a time from left to right.</li>
+        <li>Using current state and current symbol, determine new state</li>
+        <li>Repeat from step 2, until end of string is reached.</li>
+        </ol>
+        <p>Possible Output</p>
+        <ol>
+        <li><strong>Accepted</strong>: string is recognized by the machine</li>
+        <li><strong>Rejected</strong>: string is not recognized by the machine</li>
+        </ol>
+        <p>Accepting Conditions</p>
+        <ol>
+        <li>Scan the whole input string</li>
+        <li>Land on a final state</li>
+        </ol>
+        </div>
+        <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+        <h3 style="border: #1D3557 thin; border-style: none none solid;">Example</h3>
+        <p>Determine if the following strings are accepted by using machine M1</p>
+        <ol>
+        <li>
+        <p>10000000</p>
+        <pre style="background-color: #f1faee; margin: 1%; padding: 1%;">q1,1 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4</pre>
+        <p><strong>Accepted</strong></p>
+        </li>
+        <li>
+        <p>01111</p>
+        <pre style="background-color: #f1faee; margin: 1%; padding: 1%;">q1,0 -&gt; q2,1 -&gt; q2,1 -&gt; q2,1 -&gt; q2,1 -&gt; q2</pre>
+        <p><strong>Accepted</strong></p>
+        </li>
+        <li>
+        <p>1000001</p>
+        <pre style="background-color: #f1faee; margin: 1%; padding: 1%;">q1,1 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,0 -&gt; q4,1 -&gt; q3</pre>
+        <p><strong>Rejected</strong> q3 is not a final state</p>
+        </li>
+        </ol>
+        </div>
+        
+        </div>
+          
+        <div id="assign-to-mount-point" bis_skin_checked="1"></div>
+        <div id="choose-editor-mount-point" bis_skin_checked="1"></div>
+        </div>
+        </div>
+        <div id="module_navigation_target" bis_skin_checked="1"><div style="" bis_skin_checked="1"><div class="module-sequence-padding" bis_skin_checked="1"></div>
+        <div class="module-sequence-footer" role="navigation" aria-label="Module Navigation" bis_skin_checked="1">
+          <div class="module-sequence-footer-content" bis_skin_checked="1">
+            
+            <a href="{{ url_for('index') }}">
+                <button type="button">Start DFA Simulation</button>
+            </a>
+            
+          </div>
+        </div>
+        </div></div>
+        
+                  </div>
+
+</body>
+
+</html>

@@ -18,20 +18,7 @@ class DFA:
 
 
                     
-                        # transitions = { 
-                        # ('q1', '0'): 'q2', 
-                        # ('q1', '1'): 'q4', 
-                        # ('q2', '0'): 'q3', 
-                        # ('q2', '1'): 'q2', 
-                        # ('q3', '0'): 'q3', 
-                        # ('q3', '1'): 'q3', 
-                        # ('q4', '0'): 'q4', 
-                        # ('q4', '1'): 'q3' 
-                        #}
-                #(currentState, inputChar, nextState)
-
-#The goal of the simulate() is to 'return' the transitions containing steps,currentInput,currentState,nextState,and is the state accepting or not. the table that's it
-
+               
     
     def simulate(self, string): #e.g 1001010
         current_state = self.start_state
@@ -64,8 +51,6 @@ class DFA:
      
     def split_and_include_operators(text, operators):
         return text.split()
-# ['b', 'a*', 'b'] user input is  "b a* b"
-# ['ba*', 'b', 'c+'] user input is "ba* b c+"
 
 
 
@@ -177,14 +162,7 @@ class DFA:
 
 
 
-    #transitions from return of simulate()
-#     simulate() returns{
-#     'step': <step_number>,
-#     'input': <input_symbol>,
-#     'current_state': <current_state>,
-#     'next_state': <next_state>,
-#     'is_accepting': <True/False>
-# }
+
     @classmethod    
     def generate_random_dfa_input(self, states_length=7, alphabet=('0', '1')):
         states = [f"q{i}" for i in range(1, states_length + 1)]
@@ -206,18 +184,7 @@ class DFA:
             "transitions": transitions
         }
 
-                # transitions = { 
-                    # ('q1', '0'): 'q2', 
-                    # ('q1', '1'): 'q4', 
-                    # ('q2', '0'): 'q3', 
-                    # ('q2', '1'): 'q2', 
-                    # ('q3', '0'): 'q3', 
-                    # ('q3', '1'): 'q3', 
-                    # ('q4', '0'): 'q4', 
-                    # ('q4', '1'): 'q3' 
-                    #}
-
-
+              
     @app.route('/generate_random', methods=['GET'])
     def generate_random_dfa():
         size = request.args.get('size', type=int, default=4)  
@@ -231,21 +198,6 @@ class DFA:
             "accept_states": ','.join(dfa_details["accept_states"]),
             "transitions": "\n".join([f"{state},{symbol},{next_state}" for (state, symbol), next_state in dfa_details["transitions"].items()])
         }
-
-# States: q1,q2,q3,q4
-# Alphabet: 0,1
-# Start State: q4
-# Accept States: q4,q3,q1,q2
-
-# Transitions:
-# q1,0,q2
-# q1,1,q2
-# q2,0,q4
-# q2,1,q4
-# q3,0,q1
-# q3,1,q4
-# q4,0,q4
-# q4,1,q3
 
 
 
@@ -312,13 +264,7 @@ class DFA:
 
 
 
-# transitions{
-# #     'step': <step_number>,
-# #     'input': <input_symbol>,
-# #     'current_state': <current_state>,
-# #     'next_state': <next_state>,
-# #     'is_accepting': <True/False>
-# # }
+
         # Diagrams for each transition
         for transition in transitions:
             dot = Digraph()
@@ -385,16 +331,6 @@ def index():
 
 
         transitions_list = transitions_raw.split('\n')
-#         transitions_list = [
-#     "q1,0,q2",
-#     "q1,1,q4",
-#     "q2,0,q3",
-#     "q2,1,q2",
-#     "q3,0,q3",
-#     "q3,1,q3",
-#     "q4,0,q4",
-#     "q4,1,q3"
-# ]
 
 
         input_string = request.form['input_string']
@@ -410,17 +346,7 @@ def index():
                     current_state, symbol, next_state = [part.strip() for part in parts]
                     transitions[(current_state, symbol)] = next_state
 
-                    # transitions = { 
-                    # ('q1', '0'): 'q2', 
-                    # ('q1', '1'): 'q4', 
-                    # ('q2', '0'): 'q3', 
-                    # ('q2', '1'): 'q2', 
-                    # ('q3', '0'): 'q3', 
-                    # ('q3', '1'): 'q3', 
-                    # ('q4', '0'): 'q4', 
-                    # ('q4', '1'): 'q3' 
-                    #}
-                
+               
                 else:
                     raise ValueError(f"Incorrect format for transition: {transition}")
         

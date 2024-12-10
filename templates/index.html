@@ -1,72 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customizable DFA Simulation</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <h1>Customizable DFA Simulation</h1>
-    <form method="POST">
-        <label for="states">States (comma-separated):</label>
-        <input type="text" id="states" name="states" placeholder="e.g. q1,q2,q3" value="{{ request.form.states }}" required><br><br>
-        <label for="alphabet">Alphabet (comma-separated):</label>
-        <input type="text" id="alphabet" name="alphabet" placeholder="e.g. 0,1" value="{{ request.form.alphabet }}" required><br><br>
-        <label for="start_state">Start State:</label>
-        <input type="text" id="start_state" name="start_state" value="{{ request.form.start_state }}" required><br><br>
-        <label for="accept_states">Accept States (comma-separated):</label>
-        <input type="text" id="accept_states" name="accept_states" placeholder="e.g. q2,q3" value="{{ request.form.accept_states }}" required><br><br>
-        <label for="transitions">Transition Table (Format: current_state,input_symbol,next_state):</label><br>
-        <textarea id="transitions" name="transitions[]" placeholder="e.g. q1,0,q2" rows="5" cols="40" required>{{ request.form['transitions[]'] }}</textarea><br><br>
-        <p>Sample transitions:</p>
-        <p>q1,0,q2</p>
-        <p>q1,1,q4</p>
-        <p>q2,0,q3</p>
-        <p>q2,1,q2</p>
-        <p>q3,0,q3</p>
-        <p>q3,1,q3</p>
-        <p>q4,0,q4</p>
-        <p>q4,1,q3</p>
-        <label for="input_string">Input String (0's and 1's):</label>
-        <input type="text" id="input_string" name="input_string" value="{{ request.form.input_string }}" required><br><br>
-        <button type="submit">Simulate DFA</button>
-    </form>
-    
-    {% if transitions %}
-    <h2>Simulation Results</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Step</th>
-                <th>Input Character</th>
-                <th>Current State</th>
-                <th>Next State</th>
-                <th>Accepting State?</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for transition in transitions %}
-            <tr>
-                <td>{{ transition.step }}</td>
-                <td>{{ transition.input }}</td>
-                <td>{{ transition.current_state }}</td>
-                <td>{{ transition.next_state }}</td>
-                <td>{{ 'Yes' if transition.is_accepting else 'No' }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="result {{ 'accepted' if accepted else 'rejected' }}">
-        Result: {{ 'Accepted' if accepted else 'Rejected' }}
-    </div>
-    
-    <h2>DFA Diagrams</h2>
-    <img src="{{ url_for('static', filename='dfa_diagram_step_0.png') }}" alt="DFA Diagram">
 
-    {% for diagram in diagram_filenames %}
-        <img src="{{ url_for('static', filename=diagram) }}" alt="DFA Diagram Step {{ loop.index }}">
-    {% endfor %}
+<body>
+    <div id="top" style="background: #EEE; padding: 1%;" bis_skin_checked="1">
+        <h1>Customizable DFA Simulation</h1>
+
+        <form method="POST">
+            <h2 style="background-color: #1d3557; padding: 1%; margin: 1%; color: #fff;">Random DFA Generator</h2>
+
+            <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+                <p>Too Lazy to input? fetch our auto generator here:</p>
+                <ul>
+                    <li>
+                        <p>Input Random Size (e.g., 4, 5, 6):</p>
+                        <input type="text" id="randm_dfa" name="randm_dfa"></label>
+                    </li>
+                    <li><button type="button" onclick="generateRandomDFA()">Generate Random DFA</button></label></li>
+
+                </ul>
+            </div>
+        </form>
+        <form method="POST">
+            <h2 style="background-color: #1d3557; padding: 1%; margin: 1%; color: #fff;">Custom DFA Generator</h2>
+
+            <!-- Form elements for DFA simulation input -->
+            <label for="states" style="border: #1D3557 thin; border-style: none none solid;">States
+                (comma-separated):</label>
+            <input type="text" id="states" name="states" placeholder="e.g. q1,q2,q3" value="{{ request.form.states }}"
+                required><br><br>
+
+            <label for="alphabet">Alphabet (comma-separated):</label>
+            <input type="text" id="alphabet" name="alphabet" placeholder="e.g. 0,1" value="{{ request.form.alphabet }}"
+                required><br><br>
+
+            <label for="start_state">Start State:</label>
+            <input type="text" id="start_state" name="start_state" value="{{ request.form.start_state }}"
+                required><br><br>
+
+            <label for="accept_states">Accept States (comma-separated):</label>
+            <input type="text" id="accept_states" name="accept_states" placeholder="e.g. q2,q3"
+                value="{{ request.form.accept_states }}" required><br><br>
+
+            <label for="transitions">Transition Table (Format: current_state,input_symbol,next_state):</label><br>
+            <textarea id="transitions" name="transitions[]" placeholder="e.g. q1,0,q2" rows="5" cols="40"
+                required>{{ request.form['transitions[]'] }}</textarea><br><br>
+
+            <p>Sample transitions:</p>
+            <p>q1,0,q2</p>
+            <p>q1,1,q4</p>
+            <p>q2,0,q3</p>
+            <p>q2,1,q2</p>
+            <p>q3,0,q3</p>
+            <p>q3,1,q3</p>
+            <p>q4,0,q4</p>
+            <p>q4,1,q3</p>
+
+            <label for="input_string">Input String (0's and 1's):</label>
+            <input type="text" id="input_string" name="input_string" value="{{ request.form.input_string }}"
+                required><br><br>
+
+            <button type="submit">Simulate DFA</button>
+
+
+        </form>
+
+
+        <form method="POST">
+            <h2 style="background-color: #1d3557; padding: 1%; margin: 1%; color: #fff;">Design your own DFA using STRINGS:</h2>
+
+            <div style="background-color: #fff; padding: 1%; margin: 1%; font-size: 14pt;" bis_skin_checked="1">
+                <p>Design your own DFA using STRINGS:</p>
+                <ul>
+                    <li>
+                        <p>Enter DFA Design String seperate by space (e.g., 1 0* 1| ):</p>
+                        <input type="text" id="dfa_design" name="dfa_design">
+                    </li>
+                    <li><button type="button" onclick="designDFATransition()">Design DFA Transition</button></label></li>
+
+                </ul>
+            </div>
+
+            <div id="transitions-output" style="background-color: #f0f0f0; padding: 1%; margin-top: 1%; display: none;"> 
+                <h3>Generated Transitions:</h3> 
+                <pre id="transitions2"></pre> 
+            </div>
+        </form>
+
+
+        <form method="POST">
+            <h2 style="background-color: #1d3557; padding: 1%; margin: 1%; color: #fff;">Legends</h2>
+
+            <div class="flexColumned">
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='start.png') }}" alt="">
+                    <p>Start State</p>
+                </div>
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='state.png') }}" alt="">
+                    <p>State</p>
+                </div>
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='acceptingState.png') }}" alt="">
+                    <p>Accepting State</p>
+                </div>
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='currentAcceptingState.png') }}" alt="">
+                    <p>Current Accepting State</p>
+                </div>
+
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='currentEndState.png') }}" alt="">
+                    <p>Current Rejecting State</p>
+                </div>
+
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='acceptedEndState.png') }}" alt="">
+                    <p>Accepted End State</p>
+                </div>
+            
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='rejectedEndState.png') }}" alt="">
+                    <p>Rejected End State</p>
+                </div>
+
+
+                <div class="flexColumnedItem">
+                    <img src="{{ url_for('static', filename='prevState.png') }}" alt="">
+                    <p>Previous State</p>
+                </div>
+                
+
+
+
+
+
+                    <!-- Add more images as needed -->
+                
+                
+            </div>
+            
+            
+
+            
+        </form>
+
+
+        <h2>DFA Diagrams</h2>
+
+
+
+        <div class="simulation-container">
+            <div class="slideshow-container">
+                {% for diagram in diagram_filenames %}
+                <div class="slide">
+                    <!-- <img class="background" src="{{ url_for('static', filename='dfa_diagram_step_0.png') }}" alt="DFA Initial Diagram"> -->
+
+                    <img class="foreground" src="{{ url_for('static', filename=diagram) }}"
+                        alt="DFA Diagram Step {{ loop.index }}">
+                </div>
+                {% endfor %}
+
+
+            </div>
+            <div class="details">
+                {% if transitions %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Input Character</th>
+                            <th>Current State</th>
+                            <th>Next State</th>
+                            <th>Accepting State?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transition in transitions %}
+                        <tr id="step-{{ transition.step }}">
+                            <td>{{ transition.step }}</td>
+                            <td>{{ transition.input }}</td>
+                            <td>{{ transition.current_state }}</td>
+                            <td>{{ transition.next_state }}</td>
+                            <td>{{ 'Yes' if transition.is_accepting else 'No' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="result {{ 'accepted' if accepted else 'rejected' }}">
+                    Result: {{ 'Accepted' if accepted else 'Rejected' }}
+                </div>
+            </div>
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+
+    </div>
     {% endif %}
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll(".slide");
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.style.display = "flex";
+                    setTimeout(() => {
+                        slide.style.opacity = 1;
+                    }, 20);
+                } else {
+                    slide.style.opacity = 0; 
+                    setTimeout(() => {
+                        slide.style.display = "none";
+                    }, 500);
+                }
+            });
+
+
+
+            const activeStep = index; 
+            const rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                if (row.id === `step-${activeStep}`) {
+                    row.classList.add("highlight");
+                }else if (activeStep == slides.length - 1){ //the last slide
+                    document.querySelector(".result").classList.add("glow");
+                    row.classList.remove("highlight");
+                }
+                 else {
+                    row.classList.remove("highlight");
+                    document.querySelector(".result").classList.remove("glow");
+                }
+            });
+
+            console.log(`Active Step: step-${activeStep}`);
+            rows.forEach(row => console.log(`Row ID: ${row.id}`));
+        }
+
+        async function generateRandomDFA() {
+            const size = document.getElementById('randm_dfa').value;
+
+            if (!size || isNaN(size) || parseInt(size) <= 0) {
+                alert('Please enter a valid size for the DFA.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/generate_random?size=${size}`);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch random DFA');
+                }
+                const data = await response.json();
+
+                document.getElementById('states').value = data.states;
+                document.getElementById('alphabet').value = data.alphabet;
+                document.getElementById('start_state').value = data.start_state;
+                document.getElementById('accept_states').value = data.accept_states;
+                document.getElementById('transitions').value = data.transitions;
+            } catch (error) {
+                console.error('Error generating random DFA:', error);
+                alert('Failed to generate random DFA. Please try again.');
+            }
+        }
+
+        function changeSlide(direction) {
+            slides[currentSlideIndex].style.opacity = 0;
+            setTimeout(() => {
+                slides[currentSlideIndex].style.display = "none";
+                currentSlideIndex += direction;
+
+                if (currentSlideIndex < 0) {
+                    currentSlideIndex = slides.length - 1; // Wrap around to the last slide
+                } else if (currentSlideIndex >= slides.length) {
+                    currentSlideIndex = 0; // Wrap around to the first slide
+                }
+                showSlide(currentSlideIndex);
+
+                slides[currentSlideIndex].style.display = "flex";
+                setTimeout(() => {
+                    slides[currentSlideIndex].style.opacity = 1;
+                }, 20); // Small delay to trigger the fade-in transition
+            }, 500); // Match the transition duration (2 seconds)
+        }
+
+        // Initialize the slideshow
+        document.addEventListener("DOMContentLoaded", () => {
+            showSlide(currentSlideIndex);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+        function designDFATransition() {
+            const inputString = document.getElementById('dfa_design').value;
+
+            if (!inputString) {
+                alert('Please enter a DFA design string.');
+                return;
+            }
+
+            fetch(`/design_dfa?input_string=${inputString}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.transitions)
+                    document.getElementById('transitions').textContent = data.transitions;
+                    console.log(JSON.stringify(data.transitions, null, 2))
+
+                    document.getElementById('transitions-output').style.display = 'block';
+                    document.getElementById('transitions2').textContent = data.transitions;
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to design DFA transitions. Please try again.');
+                });
+        }
+
+
+
+
+
+
+    </script>
 </body>
+
 </html>
