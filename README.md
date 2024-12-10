@@ -1,4 +1,6 @@
 ﻿# DfaSimulatorFlaskApp
+DEMO VIDEO
+https://www.youtube.com/watch?v=HhO17bzgqD0
 
  IF INSTRUCTIONS NOT CLEAR, OR TOO LAZY TO FOLLOW, PM ME OR GO TO MY CLASSROOM (tuesday-thursday)
  inalis ko comments sa code AHAHAHAHAHAH para di overwhelming
@@ -36,11 +38,15 @@ windows_10_cmake_Release_graphviz-install-12.1.2-win64.exe this could be the SOF
 
 ﻿# DEMO DEMO DEMO DEMO
 
- ![image](https://github.com/user-attachments/assets/a7e4c37f-63ca-40b5-bb07-4c10bd7f8d1b)
+![image](https://github.com/user-attachments/assets/580147ae-c73e-462b-a791-bbb26b5e8e00)
 
-![image](https://github.com/user-attachments/assets/52353b66-900e-41a1-b21f-53afe438e0f6)
+![image](https://github.com/user-attachments/assets/4ea21bc8-672e-4ea1-a3b4-7eb4f3026066)
 
-![image](https://github.com/user-attachments/assets/da499ee6-1a3e-40d4-b349-0571180ead9f)
+![image](https://github.com/user-attachments/assets/46a9e2dc-5a87-4ae8-ab46-daf32c98a4c6)
 
 
+![image](https://github.com/user-attachments/assets/a427ac17-86c6-4329-a7b2-9d90a1ac2fc7)
+
+
+![image](https://github.com/user-attachments/assets/a230efa1-b8c4-4197-977e-4b874e24350e)
 
